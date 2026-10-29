@@ -36,7 +36,10 @@ resource "aws_iam_role" "github_actions_ecr_role" {
         {
         "Effect": "Allow",
         "Principal": {
-            "Federated": "arn:aws:iam::599194859141:github/token.actions.githubusercontent.com"
+            type        = "Federated"
+            identifiers = [
+                aws_iam_openid_connect_provider.github.arn
+            ]
         },
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
@@ -46,6 +49,5 @@ resource "aws_iam_role" "github_actions_ecr_role" {
             }
         }
         }
-    ]
-    })
+    ]})
 }
