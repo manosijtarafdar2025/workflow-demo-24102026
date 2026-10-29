@@ -17,11 +17,13 @@ variable "image_tag_mutability" {
 variable "github_owner" {
   description = "GitHub username or organization that owns the repository"
   type        = string
+  default     = "manosijtarafdar2025"
 }
 
 variable "github_repository" {
   description = "GitHub repository name, without the owner"
   type        = string
+  default     = "workflow-demo-24102026"
 }
 
 variable "github_branch" {
