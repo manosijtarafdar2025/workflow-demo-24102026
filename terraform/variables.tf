@@ -14,3 +14,32 @@ variable "image_tag_mutability" {
     error_message = "Use MUTABLE or IMMUTABLE."
   }
 }
+variable "github_owner" {
+  description = "GitHub username or organization that owns the repository"
+  type        = string
+}
+
+variable "github_repository" {
+  description = "GitHub repository name, without the owner"
+  type        = string
+}
+
+variable "github_branch" {
+  description = "Branch allowed to push images to ECR"
+  type        = string
+  default     = "master"
+}
+
+# GitHub repository IDs are needed for repositories using
+# GitHub's immutable OIDC subject format.
+variable "github_owner_id" {
+  description = "GitHub owner ID; leave empty for the traditional subject format"
+  type        = string
+  default     = ""
+}
+
+variable "github_repository_id" {
+  description = "GitHub repository ID; leave empty for the traditional subject format"
+  type        = string
+  default     = ""
+}

@@ -7,6 +7,15 @@ on:
 
 permissions:
   contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ap-south-1
+  AWS_ACCOUNT_ID: 599194859141
+  AWS_ROLE_NAME: github_actions_ecr_role
+  ECR_REPOSITORY_NAME: python-app
+  GITHUB_REPOSITORY: workflow-demo-24102026
+  GITHUB_BRANCH: master
 
 jobs:
   test:
@@ -25,3 +34,9 @@ jobs:
           context: .
           push: false
           tags: my-python-app:latest
+      
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v6
+      #   with:
+      #     role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/${{ env.AWS_ROLE_NAME }}
+      #     aws-region: ${{ env.AWS_REGION }}
