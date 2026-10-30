@@ -20,7 +20,7 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
           "ecr:PutImage",
           "ecr:UploadLayerPart"
         ]
-        Resource = "arn:aws:ecr:eu-west-1:599194859141:repository/python-app"
+        Resource = aws_ecr_repository.python_app.arn
       }
     ]
   })
