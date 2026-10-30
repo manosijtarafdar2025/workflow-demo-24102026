@@ -1,3 +1,4 @@
+
 locals {
   github_oidc_subject = (
     var.github_owner_id != "" && var.github_repository_id != ""
@@ -5,7 +6,6 @@ locals {
     : "repo:${var.github_owner}/${var.github_repository}:ref:refs/heads/${var.github_branch}"
   )
 }
-
 
 resource "aws_iam_openid_connect_provider" "github" {
   url = "https://token.actions.githubusercontent.com"
