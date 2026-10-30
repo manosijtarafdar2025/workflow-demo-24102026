@@ -37,11 +37,11 @@ variable "github_branch" {
 variable "github_owner_id" {
   description = "GitHub owner ID; leave empty for the traditional subject format"
   type        = string
-  default     = ""
+  default     = "291530542"
 }
 
 variable "github_repository_id" {
   description = "GitHub repository ID; leave empty for the traditional subject format"
   type        = string
-  default     = ""
+  default     = "1431887997"
 }
