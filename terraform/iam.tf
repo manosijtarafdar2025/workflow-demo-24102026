@@ -29,8 +29,6 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
 
 resource "aws_iam_role" "github_actions_ecr_role" {
   name = "github-actions-ecr-role"
-
-  # Use the trust policy defined in the OIDC configuration.
   assume_role_policy = data.aws_iam_policy_document.github_actions_trust.json
 }
 
