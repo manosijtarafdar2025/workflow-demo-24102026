@@ -9,20 +9,19 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 env:
   AWS_REGION: ap-south-1
   AWS_ACCOUNT_ID: 599194859141
-  AWS_ROLE_NAME: github_actions_ecr_role
+  AWS_ROLE_NAME: github-actions-ecr-role
   ECR_REPOSITORY_NAME: python-app
-  GITHUB_REPOSITORY: workflow-demo-24102026
-  GITHUB_BRANCH: master
 
 jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -54,7 +53,11 @@ jobs:
   push-to-ecr:
     name: Push Docker Image to ECR
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/master')
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -76,4 +79,4 @@ jobs:
           push: true
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_NAME }}:latest
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_NAME }}:${{ steps.version.outputs.version }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_NAME }}:${{ needs.build.outputs.version }}
